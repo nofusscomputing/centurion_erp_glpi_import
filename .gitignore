@@ -1,1 +1,4 @@
 __pycache__
+
+# Dont track `__init__.py` within repo root.
+/__init__.py
