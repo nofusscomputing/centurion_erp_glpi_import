@@ -4,4 +4,5 @@ from . import (
     software,
     softwarecategory,
     softwareversion,
+    users,
 )
