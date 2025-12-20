@@ -1,6 +1,6 @@
 from django.db import models
 
-from .fields.zero_foriegnkwy import ZeroAsNoneForeignKey
+from .fields.zero_foriegnkey import ZeroAsNoneForeignKey
 
 
 
@@ -136,6 +136,5 @@ class GlpiEntities(models.Model):
 
     class Meta:
         managed = False
-        app_label = "glpi_import"
         db_table = 'glpi_entities'
         unique_together = (('entities_id', 'name'),)
