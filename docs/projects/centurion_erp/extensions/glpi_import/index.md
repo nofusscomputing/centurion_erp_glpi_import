@@ -7,3 +7,12 @@ about: https://github.com/nofusscomputing/centurion_erp_glpi_import
 ---
 
 An extension to import data from GLPI.
+
+
+## TOC
+
+- [Adding a new GLPI Table](./add_glpi_table.md)
+
+- [Configuring](./configuration.md)
+
+
