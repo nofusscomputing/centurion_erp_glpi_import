@@ -1,0 +1,101 @@
+---
+
+name: 'MkDocs'
+
+on:
+  pull_request: {}
+
+
+jobs:
+
+  lint:
+    name: 'Lint'
+    if: ${{ github.event_name == 'pull_request' }}
+    env:
+      MDLINT_PATHS: '"docs/*.md docs/**/*.md docs/**/**/*.md docs/**/**/**/*.md docs/**/**/**/**/**/*.md #CHANGELOG.md !gitlab-ci !website-template"'
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout Code
+        uses: http://${{ secrets.ACTIONS_TOKEN_RO }}@gitea-http.git.svc:3000/actions/checkout@v4
+
+      - name: Init Git Submodules
+        shell: bash
+        run: |
+          git submodule update --init;
+          git submodule foreach git submodule update --init;
+
+          ls -ls
+
+      - name: Install Dependencies
+        shell: bash
+        run: |
+          sudo apt update;
+          sudo apt install -y --no-install-recommends npm;
+
+      - name: Install Linter
+        shell: bash
+        run: |
+          npm install markdownlint-cli2@v0.18.1 --global;
+          npm install markdownlint-cli2-formatter-junit --global;
+          npm install markdownlint-cli2-formatter-template --global;
+
+      - name: Create Artifact directory
+        shell: bash
+        run: |
+          mkdir -p artifacts
+
+
+      - name: Enable Problem Matcher
+        shell: bash
+        run: |
+          echo "NFC_PROBLEM_MATCHER=${GITHUB_REF_NAME}";
+          echo "NFC_PROBLEM_MATCHER_TYPE=markdown-lint";
+
+
+      - name: Lint
+        id: lint
+        shell: bash
+        run: |
+          markdownlint-cli2 $MDLINT_PATHS 1>&1 || EXITCODE=$?
+
+          if [ "${EXITCODE}" ]; then
+
+            echo "exit_code=${EXITCODE}" >> $GITHUB_OUTPUT
+
+          else
+
+            echo "exit_code=0" >> $GITHUB_OUTPUT
+
+          fi
+
+          echo "[Trace] GITHUB_OUTPUT[$(cat $GITHUB_OUTPUT)]";
+
+          ls -la;
+          
+          mv -vf markdown.junit.xml "artifacts/markdown_lint.junit.xml"
+
+      - name: debug ls
+        if: ${{ success() || failure() }}
+        shell: bash
+        run: |
+          ls -la artifacts/;
+
+
+      - name: Check if Linting Error Occured
+        shell: bash
+        run: |
+          if [ ${{ steps.lint.outputs.exit_code }} -ge 3 ]; then
+
+            echo "[Error] ansible lint failed with  ${{ steps.lint.outputs.exit_code }}";
+            
+            exit ${{ steps.lint.outputs.exit_code }};
+
+          fi # don't fail the job?? 1=failed test, 2=failed command i.e. switch/flag
+
+      - name: Upload build Artifact
+        if: ${{ success() || failure() }}
+        uses: http://${{ secrets.ACTIONS_TOKEN_RO }}@gitea-http.git.svc:3000/actions/upload-artifact@v3
+        with:
+          name: mkdocs-lint
+          path: artifacts/

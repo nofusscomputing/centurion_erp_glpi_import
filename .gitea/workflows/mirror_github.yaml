@@ -1,0 +1,35 @@
+---
+
+name: Mirror
+
+
+on:
+  push:
+    branches:
+      - '*'
+
+
+env:
+  token: ${{ secrets.ACTIONS_TOKEN_RO }}
+
+
+jobs:
+
+
+  mirror-github:
+    name: Github
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout Code
+        uses: http://${{ secrets.ACTIONS_TOKEN_RO }}@gitea-http.git.svc:3000/actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Mirror
+        uses: http://${{ secrets.ACTIONS_TOKEN_RO }}@gitea-http.git.svc:3000/actions/repository-mirroring-action@v1
+        with:
+          target_repo_url: ssh://github.com/nofusscomputing/centurion_erp_glpi_import
+          ssh_private_key: ${{ secrets.SSH_DEPLOY_KEY_GITHUB }}
+          ssh_username: git
