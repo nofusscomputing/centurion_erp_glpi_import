@@ -1,6 +1,7 @@
 import os
 
 from django.apps import AppConfig
+from django.conf import settings
 
 
 
@@ -31,3 +32,37 @@ class GlpiImportConfig(AppConfig):
 
 
         super().__init__(app_name, app_module)
+
+
+
+    def ready(self):
+
+        if not settings.RUNNING_TESTS:
+
+            if(
+                os.environ.get(f"{str(self.label).upper()}_DB_USER", None)
+                and os.environ.get(f"{str(self.label).upper()}_DB_PASSWORD", None)
+            ):
+
+                settings.DATABASES.update({
+                    self.label: {
+                        "ENGINE": "django.db.backends.mysql",
+                        "NAME": os.environ.get(f"{str(self.label).upper()}_DB_NAME", 'glpi'),
+                        "USER": os.environ.get(f"{str(self.label).upper()}_DB_USER", ''),
+                        "PASSWORD": os.environ.get(f"{str(self.label).upper()}_DB_PASSWORD", ''),
+                        "HOST": os.environ.get(f"{str(self.label).upper()}_DB_HOST", '127.0.0.1'),
+                        "PORT": os.environ.get(f"{str(self.label).upper()}_DB_PORT", "3306"),
+                        "ATOMIC_REQUESTS": False,
+                        "TIME_ZONE": None,
+                        "CONN_MAX_AGE": 0,
+                        "OPTIONS": {
+                            "init_command": "SET SESSION TRANSACTION READ ONLY",
+                        },
+                    },
+                })
+
+
+            settings.DATABASE_ROUTERS = [
+                f"{self.name}.db_router.GlpiImportRouter",
+                *settings.DATABASE_ROUTERS,
+            ]
