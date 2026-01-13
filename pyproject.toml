@@ -54,9 +54,11 @@ classifiers = [
 
 
 
-# [project.optional-dependencies]
+[project.optional-dependencies]
 
-# dev = []
+dev = [
+    "pytest-simplified>=1.0.0rc2"
+]
 
 # prod = []
 
