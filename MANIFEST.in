@@ -1,0 +1,7 @@
+recursive-exclude docs *
+recursive-exclude .gitea *
+recursive-exclude .github *
+
+exclude .git*
+exclude .markdownlin*
+
