@@ -7,6 +7,8 @@ from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
+from centurion.logging import CenturionLogger
+
 from glpi_import.src.process import (
     empty_str_to_none,
     get_model_kwargs,
@@ -40,7 +42,7 @@ def entry_hash(model_kwargs: dict) -> str:
 @shared_task( bind = True )
 def glpi_import(self, object_dict: dict):
 
-    logger = get_task_logger( name = __name__ )
+    logger: CenturionLogger = get_task_logger( name = __name__ )
 
     logger.info( msg = 'Begin Import' )
 
@@ -173,9 +175,14 @@ def glpi_import(self, object_dict: dict):
 
 
         except ValidationError as e:
-            logger.critical( msg = f'Validation error occured: {e}' )
+            logger.notice( msg = f'Validation error occured: {e}' )
 
         except SkipMigration as e:
             logger.warning( msg = f'Object not migrated: {e}' )
 
+        except Exception as e:
+            logger.critical( msg = f'Unknown error occured: {e}' )
+
+
+    logger.info( msg = 'End Import' )
 

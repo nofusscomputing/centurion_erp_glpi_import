@@ -138,8 +138,6 @@ def glpi_to_centurion(
                     glpi_hash = hash,
                 )
 
-                print( f'created: {field_value._meta.model_name}={model_kwargs}' )
-
                 del type(existing).context[existing._meta.model_name]
 
             else:
@@ -148,8 +146,6 @@ def glpi_to_centurion(
 
 
     elif len(existing) == 1:
-
-        print( f'found: {model_name}' )
 
         existing = existing.first()
 
