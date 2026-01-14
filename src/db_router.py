@@ -5,7 +5,10 @@ class GlpiImportRouter:
 
     def db_for_read(self, model, **hints):
 
-        if model._meta.app_label == "glpi_import":
+        if(
+            model._meta.app_label == "glpi_import"
+            and model._meta.model_name != 'glpiimportprogress'
+        ):
             return self.db_alias
 
         return None
@@ -13,7 +16,10 @@ class GlpiImportRouter:
 
     def db_for_write(self, model, **hints):
 
-        if model._meta.app_label == "glpi_import":
+        if(
+            model._meta.app_label == "glpi_import"
+            and model._meta.model_name != 'glpiimportprogress'
+        ):
             return None
 
         return None
