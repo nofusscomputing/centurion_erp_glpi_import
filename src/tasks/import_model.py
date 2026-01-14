@@ -81,7 +81,7 @@ def glpi_import(self, object_dict: dict):
             hash = entry_hash(model_kwargs = centurion_model_kwargs)
 
             progress_entry = progress_model.objects.filter(
-                glpi_model_name = centurion_model._meta.model_name,
+                glpi_model_name = glpi_data._meta.model_name,
                 glpi_hash = hash,
             )
 
@@ -103,7 +103,7 @@ def glpi_import(self, object_dict: dict):
 
                 progress_model.objects.create(
                     glpi_id = glpi_data.id,
-                    glpi_model_name = centurion._meta.model_name,
+                    glpi_model_name = glpi_data._meta.model_name,
                     glpi_hash = hash,
                 )
 
