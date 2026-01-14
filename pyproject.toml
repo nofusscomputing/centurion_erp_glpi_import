@@ -11,7 +11,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 
-name = "centurion-erp-glpi-import"
+name = "glpi-import"
 description = "Centurion ERP app to migrate data from GLPI to Centurion ERP."
 
 version = "0.0.1"
@@ -92,11 +92,11 @@ commit_parser = "^(?P<change_type>feat|fix|test|refactor|perf|BREAKING CHANGE)(?
 
 
 [tool.setuptools]
-package-dir = {"centurion_erp_glpi_import" = "src"}
+package-dir = {"glpi_import" = "src"}
 
 
 [tool.setuptools.exclude-package-data]
-centurion_erp_glpi_import = [
+glpi_import = [
   ".git*",
   ".markdownlin*",
 ]
