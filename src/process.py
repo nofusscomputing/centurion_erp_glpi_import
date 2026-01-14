@@ -85,10 +85,14 @@ def glpi_to_centurion(
     if len(existing) == 0:
 
         # To Do: Check field length
-        # To Do: Set context['user']
 
         if not object_dict.get('create', False):
             return None
+
+        progress_model = apps.get_model(
+            app_label = 'glpi_import',
+            model_name = 'glpiimportprogress'
+        )
 
         if field_value._meta.model_name in settings.GLPI_IMPORT['objects']:
 
@@ -123,6 +127,16 @@ def glpi_to_centurion(
             if create:
 
                 existing.save()
+
+                from .tasks.import_model import entry_hash
+
+                hash = entry_hash(model_kwargs = model_kwargs)
+
+                progress_model.objects.create(
+                    glpi_id = field_value.id,
+                    glpi_model_name = field_value._meta.model_name,
+                    glpi_hash = hash,
+                )
 
                 print( f'created: {field_value._meta.model_name}={model_kwargs}' )
 
