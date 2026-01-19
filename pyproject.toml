@@ -64,14 +64,14 @@ dev = [
 
 
 
-# [project.urls]
+[project.urls]
 
-# Documentation = "https://nofusscomputing.com/projects/centurion_erp"
-# Changelog = "https://nofusscomputing.com/projects/centurion_erp/blob/master/CHANGELOG.md"
-# Homepage = "https://github.com/nofusscomputing/centurion_erp"
-# Issues = "https://github.com/nofusscomputing/centurion_erp/issues"
+Documentation = "https://nofusscomputing.com/projects/centurion_erp/extensions/glpi_import/"
+Changelog = "https://nofusscomputing.com/git/nofusscomputing/centurion_erp_glpi_migrate/src/branch/developmenet/CHANGELOG.md"
+Homepage = "https://nofusscomputing.com/projects/centurion_erp/extensions/glpi_import/"
+Issues = "https://nofusscomputing.com/git/nofusscomputing/centurion_erp_glpi_migrate/issues"
 # releasenotes = "https://nofusscomputing.com/projects/centurion_erp/blob/master/Release-Notes.md"
-# Source = "https://github.com/nofusscomputing/centurion_erp"
+Source = "https://nofusscomputing.com/git/nofusscomputing/centurion_erp_glpi_migrate"
 
 
 
