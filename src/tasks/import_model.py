@@ -90,6 +90,8 @@ def glpi_import(self, object_dict: dict):
 
             if len(progress_entry) == 0:
 
+                logger.info( msg = f'Processing model {glpi_data._meta.model_name} id={glpi_data.id}' )
+
                 centurion = centurion_model(
                     **centurion_model_kwargs
                 )
@@ -110,6 +112,8 @@ def glpi_import(self, object_dict: dict):
                 )
 
                 del type(centurion).context[centurion._meta.model_name]
+
+                logger.info( msg = f'Migrated model {glpi_data._meta.model_name} id={glpi_data.id}' )
 
 
             #
@@ -153,6 +157,8 @@ def glpi_import(self, object_dict: dict):
 
                     if len(sub_progress_entry) == 0:
 
+                        logger.info( msg = f'Processing sub-model {sub_glpi_data._meta.model_name} id={sub_glpi_data.id}' )
+
                         centurion = sub_centurion_model(
                             **sub_centurion_model_kwargs
                         )
@@ -172,6 +178,8 @@ def glpi_import(self, object_dict: dict):
                         )
 
                         del type(centurion).context[centurion._meta.model_name]
+
+                        logger.info( msg = f'Migrated sub-model {sub_glpi_data._meta.model_name} id={sub_glpi_data.id}' )
 
 
         except ValidationError as e:
