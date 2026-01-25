@@ -7,9 +7,9 @@ from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
-from centurion.logging import CenturionLogger
+from centurion_erp.centurion.logging import CenturionLogger
 
-from glpi_import.src.process import (
+from glpi_import.process import (
     empty_str_to_none,
     get_model_kwargs,
     SkipMigration,

@@ -26,7 +26,9 @@ authors = [
 maintainers = [
     { name = "No Fuss Computing", email = "helpdesk@nofusscomputing.com" }
 ]
-dependencies = []
+dependencies = [
+    "centurion-erp>=1.28.0rc1",
+]
 
 classifiers = [
     # How mature is this project? Common values are

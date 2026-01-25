@@ -19,8 +19,8 @@ class GlpiImportConfig(AppConfig):
         is the following:
             - repository be cloned to `<centurion erp>/glpi_import/`
             - following file exists `<centurion erp>/glpi_import/__init__.py`
-            - Settings.installed apps updated from 'glpi_import.src.apps.GlpiImportConfig`
-              to 'glpi_import.src.apps.GlpiImportConfig`
+            - Settings.installed apps updated from 'glpi_import.apps.GlpiImportConfig`
+              to 'glpi_import.apps.GlpiImportConfig`
         """
 
         parent_dir = os.path.basename(os.path.dirname(__file__))

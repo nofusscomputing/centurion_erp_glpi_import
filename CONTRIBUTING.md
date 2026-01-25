@@ -5,12 +5,16 @@ Contributions to this project are welcome. Development of this project has been 
 
 ## Setup dev environment
 
-1. Clone the repository to the Django app directory ( i.e for Centurion ERP `app/glpi_import`)
+1. Clone the repository.
 
-2. within the repo root add empty file `__init__.py`
+1. Add to your django settings `INSTALLED_APPS` value `'glpi_import.apps.GlpiImportConfig'`.
 
-3. Add to your django settings `INSTALLED_APPS` value `'glpi_import.src.apps.GlpiImportConfig'`
+1. create your virtual env and activate.
 
-    _Note: the `.src.` in the path. This is only required when the repo is cloned._
+1. Install current app in edit mode `pip install -e .`.
 
-4. Start the django app as normal.
+1. Create module `ln -s ${PWD}$/src ---venv path---/lib/python3.11/site-packages/glpi_import`.
+
+    _This is required as the package is a namespace package and without it, ide imports dont work._
+
+1. Start the django app as normal.
