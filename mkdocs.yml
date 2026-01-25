@@ -62,9 +62,13 @@ nav:
 
       - projects/centurion_erp/extensions/index.md
 
-      - projects/centurion_erp/extensions/glpi_import/add_glpi_table.md
+      - GLPI Import:
 
-      - projects/centurion_erp/extensions/glpi_import/configuration.md
+        - projects/centurion_erp/extensions/glpi_import/index.md
+
+        - projects/centurion_erp/extensions/glpi_import/add_glpi_table.md
+
+        - projects/centurion_erp/extensions/glpi_import/configuration.md
 
 - Operations: 
 

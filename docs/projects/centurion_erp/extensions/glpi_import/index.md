@@ -14,5 +14,3 @@ An extension to import data from GLPI.
 - [Adding a new GLPI Table](./add_glpi_table.md)
 
 - [Configuring](./configuration.md)
-
-
