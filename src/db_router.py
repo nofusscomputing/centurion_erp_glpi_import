@@ -5,6 +5,9 @@ class GlpiImportRouter:
 
     def db_for_read(self, model, **hints):
 
+        if not hasattr(model, '_meta'):
+            return None
+
         if(
             model._meta.app_label == "glpi_import"
             and model._meta.model_name != 'glpiimportprogress'
